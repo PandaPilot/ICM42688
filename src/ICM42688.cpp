@@ -38,18 +38,16 @@ int ICM42688::begin() {
 }
 
 int ICM42688::setAccel(AccelFS fssel, AccelODR odr) {
-    printf("Accel Band: %i, Freq: %i\n", fssel, odr);
+    // printf("Accel Band: %i, Freq: %i\n", fssel, odr);
     uint8_t settings = (static_cast<uint8_t>(AccelFSVal[fssel]) << 4) | static_cast<uint8_t>(odr);
     AccelSensitivity = AccelSens[fssel];  // Set the sensitivity based on the selected full-scale range
-    printf("Setting: %i, Sense: %f\n", settings, AccelSensitivity);
+    // printf("Setting: %i, Sense: %f\n", settings, AccelSensitivity);
     return writeRegister(ACCEL_CONFIG0, settings);  // UB0_REG_ACCEL_CONFIG0
 }
 
 int ICM42688::setGyro(GyroFS fssel, GyroODR odr) {
-    printf("Gyro Band: %i, Freq: %i\n", fssel, odr);
     uint8_t settings = (static_cast<uint8_t>(GyroFSVal[fssel]) << 4) | static_cast<uint8_t>(odr);
     GyroSensitivity = GyroSens[fssel];  // Set the sensitivity based on the selected full-scale range
-    printf("Setting: %i, Sense: %f\n", settings, GyroSensitivity);
     return writeRegister(GYRO_CONFIG0, settings);  // UB0_REG_GYRO_CONFIG0
 }
 
@@ -74,9 +72,9 @@ int ICM42688::getAGT() {
     _gyr[1] = (int16_t)((buffer[10] << 8) | buffer[11]) * GyroSensitivity;
     _gyr[2] = (int16_t)((buffer[12] << 8) | buffer[13]) * GyroSensitivity;
 
-    printf("Accel: X= %.3f, Y= %.3f\n", _acc[0], _acc[1]);
-    printf("Gyro: X=%.3f, Y=%.3f, Z=%.3f\n", _gyr[0], _gyr[1], _gyr[2]);
-    printf("Temp: %.2f C\n", _t);//(TEMP_DATA / 132.48) + 25
+    // printf("Accel: X= %.3f, Y= %.3f\n", _acc[0], _acc[1]);
+    // printf("Gyro: X=%.3f, Y=%.3f, Z=%.3f\n", _gyr[0], _gyr[1], _gyr[2]);
+    // printf("Temp: %.2f C\n", _t);//(TEMP_DATA / 132.48) + 25
     return 0;
 }
 
